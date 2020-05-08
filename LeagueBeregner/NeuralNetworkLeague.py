@@ -85,8 +85,8 @@ if __name__ == "__main__":
                                 [0.8, 0.2, 0.5, 2.1200, 0.1, 0.7, 0.2, 0.91],
                                 [1.0, 0.7, 0.8, 3.6737, 0.8, 1.4, 0.2, 0.64]])
 
-    training_outputs = np.array([[2, 2, 1, 2, 2, 2, 3, 3, 3, 2, 2, 4, 2, 3, 2, 1, 1, 1,
-                                  2, 3, 4, 4, 4]]).T
+    training_outputs = np.array([[2, 2, 3, 2, 2, 2, 1, 1, 1, 2, 2, 0, 2, 1, 2, 3, 3, 3,
+                                  2, 1, 0, 0, 0]]).T
 
     # Train the neural network
     neural_network.train(training_inputs, training_outputs, 10000)
