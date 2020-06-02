@@ -64,7 +64,7 @@ model.add(Dense(4, activation='softmax')) #softmax insted of relu for final pred
 opt = keras.optimizers.Adam(learning_rate=0.01)
 model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
 
-model.fit(X, y, epochs=1000, batch_size=12)
+model.fit(X, y, epochs=60, batch_size=4)
 
 scores=model.evaluate(X, y)
 print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))

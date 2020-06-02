@@ -65,7 +65,7 @@ model.add(Dense(1, activation='sigmoid')) #sigmoid insted of relu for final pred
 
 model.compile(loss="binary_crossentropy", optimizer="adam", metrics=['accuracy'])
 
-model.fit(X, y, batch_size=4, epochs=1000)
+model.fit(X, y, batch_size=4, epochs=60)
 
 scores=model.evaluate(X, y)
 print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
