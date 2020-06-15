@@ -21,7 +21,7 @@
 # ... YOUR CODE FOR TASK 1 ...
 import pandas as pd
 # Load dataset
-cc_apps = pd.read_csv("datasets/cc_approvals.data", header=None)
+cc_apps = pd.read_csv("../../cc_approvals.data", header=None)
 # Inspect data
 cc_apps.head()
 # ... YOUR CODE FOR TASK 1 ...
@@ -30,7 +30,6 @@ cc_apps.head()
 # In[3]:
 
 
-get_ipython().run_cell_magic('nose', '', 'import pandas as pd\n\ndef test_cc_apps_exists():\n    assert "cc_apps" in globals(), \\\n        "The variable cc_apps should be defined."\n        \ndef test_cc_apps_correctly_loaded():\n    correct_cc_apps = pd.read_csv("datasets/cc_approvals.data", header=None)\n    try:\n        pd.testing.assert_frame_equal(cc_apps, correct_cc_apps)\n    except AssertionError:\n        assert False, "The variable cc_apps should contain the data as present in datasets/cc_approvals.data."')
 
 
 # ## 2. Inspecting the applications
@@ -60,7 +59,6 @@ cc_apps.tail(17)
 # In[5]:
 
 
-get_ipython().run_cell_magic('nose', '', '\ndef test_cc_apps_description_exists():\n    assert "cc_apps_description" in globals(), \\\n        "The variable cc_apps_description should be defined."\n\ndef test_cc_apps_description_correctly_done():\n    correct_cc_apps_description = cc_apps.describe()\n    assert str(correct_cc_apps_description) == str(cc_apps_description), \\\n        "cc_apps_description should contain the output of cc_apps.describe()."\n    \ndef test_cc_apps_info_exists():\n    assert "cc_apps_info" in globals(), \\\n        "The variable cc_apps_info should be defined."\n\ndef test_cc_apps_info_correctly_done():\n    correct_cc_apps_info = cc_apps.info()\n    assert str(correct_cc_apps_info) == str(cc_apps_info), \\\n        "cc_apps_info should contain the output of cc_apps.info()."')
 
 
 # ## 3. Handling the missing values (part i)
@@ -94,7 +92,6 @@ cc_apps.tail(17)
 # In[7]:
 
 
-get_ipython().run_cell_magic('nose', '', '\n# def test_cc_apps_assigned():\n#     assert "cc_apps" in globals(), \\\n#         "After the NaN replacement, it should be assigned to the same variable cc_apps only."\n\ndef test_cc_apps_correctly_replaced():\n    cc_apps_fresh = pd.read_csv("datasets/cc_approvals.data", header=None)\n    correct_cc_apps_replacement = cc_apps_fresh.replace(\'?\', np.NaN)\n    string_cc_apps_replacement = cc_apps_fresh.replace(\'?\', "NaN")\n#     assert cc_apps.to_string() == correct_cc_apps_replacement.to_string(), \\\n#         "The code that replaces question marks with NaNs doesn\'t appear to be correct."\n    try:\n        pd.testing.assert_frame_equal(cc_apps, correct_cc_apps_replacement)\n    except AssertionError:\n        if string_cc_apps_replacement.equals(cc_apps):\n            assert False, "It looks like the question marks were replaced by the string \\"NaN\\". Missing values should be represented by `np.nan`."\n        else:\n            assert False, "The variable cc_apps should contain the data in datasets/cc_approvals.data."')
 
 
 # ## 4. Handling the missing values (part ii)
@@ -115,7 +112,6 @@ cc_apps.fillna(cc_apps.mean(), inplace=True)
 # In[9]:
 
 
-get_ipython().run_cell_magic('nose', '', '\ndef test_cc_apps_correctly_imputed():\n    assert cc_apps.isnull().values.sum() == 67, \\\n        "There should be 67 null values after your code is run, but there aren\'t."')
 
 
 # ## 5. Handling the missing values (part iii)
@@ -140,7 +136,6 @@ print(cc_apps.isnull().values.sum())
 # In[11]:
 
 
-get_ipython().run_cell_magic('nose', '', '\ndef test_cc_apps_correctly_imputed():\n    assert cc_apps.isnull().values.sum() == 0, \\\n        "There should be 0 null values after your code is run, but there isn\'t."')
 
 
 # ## 6. Preprocessing the data (part i)
@@ -173,7 +168,6 @@ for col in cc_apps.columns.values:
 # In[13]:
 
 
-get_ipython().run_cell_magic('nose', '', '\ndef test_le_exists():\n    assert "le" in globals(), \\\n        "The variable le should be defined."\n\ndef test_label_encoding_done_correctly():\n    for cols in cc_apps.columns:\n        if np.issubdtype(cc_apps[col].dtype, np.number) != True:\n            assert "It doesn\'t appear that all of the non-numeric columns were converted to numeric using fit_transform."')
 
 
 # ## 7. Splitting the dataset into train and test sets
@@ -205,7 +199,6 @@ X_train, X_test, y_train, y_test = train_test_split(X,
 # In[15]:
 
 
-get_ipython().run_cell_magic('nose', '', '\ndef test_columns_dropped_correctly():\n    assert cc_apps.shape == (690,14), \\\n        "The shape of the DataFrame isn\'t correct. Did you drop the two columns?"\n\ndef test_data_split_correctly():\n    X_train_correct, X_test_correct, y_train_correct, y_test_correct = train_test_split(X, y, \\\n                                                                                   test_size=0.33, random_state=42)\n    assert X_train_correct.all() == X_train.all() and X_test_correct.all() == X_test.all() and \\\n            y_train_correct.all() == y_train.all() and y_test_correct.all() == y_test.all(), \\\n                "It doesn\'t appear that the data splitting was done correctly."')
 
 
 # ## 8. Preprocessing the data (part ii)
@@ -230,7 +223,6 @@ print(rescaledX_test.shape)
 # In[17]:
 
 
-get_ipython().run_cell_magic('nose', '', '\ndef test_features_range_set_correctly():\n    min_value_in_rescaledX_train = np.amin(rescaledX_train)\n    max_value_in_rescaledX_train = np.amax(rescaledX_train)\n    min_value_in_rescaledX_test = np.amin(rescaledX_test)\n    max_value_in_rescaledX_test = np.amax(rescaledX_test)\n    assert min_value_in_rescaledX_train == 0.0 and max_value_in_rescaledX_train == 1.0 and \\\n        min_value_in_rescaledX_test == 0.0 and max_value_in_rescaledX_test == 1.0, \\\n        "It doesn\'t appear that the value range was scaled to a minimum of 0 and a maximum of 1."')
 
 
 # ## 9. Fitting a logistic regression model to the train set
@@ -255,7 +247,6 @@ logreg.fit(rescaledX_train, y_train)
 # In[19]:
 
 
-get_ipython().run_cell_magic('nose', '', '\ndef test_logreg_defined():\n    assert "logreg" in globals(),\\\n        "Did you instantiate LogisticRegression in the logreg variable?"\n\ndef test_logreg_defined_correctly():\n    logreg_correct = LogisticRegression()\n    assert str(logreg_correct) == str(logreg), \\\n        "The logreg variable should be defined with LogisticRegression() only."')
 
 
 # ## 10. Making predictions and evaluating performance
@@ -282,7 +273,6 @@ confusion_matrix(y_test, y_pred)
 # In[21]:
 
 
-get_ipython().run_cell_magic('nose', '', '\ndef test_ypred_defined():\n    assert "y_pred" in globals(),\\\n        "The variable y_pred should be defined."\n\ndef test_ypred_defined_correctly():\n    correct_y_pred = logreg.predict(rescaledX_test)\n    assert str(correct_y_pred) == str(y_pred),\\\n        "The y_pred variable should contain the predictions as made by LogisticRegression on rescaledX_test."')
 
 
 # ## 11. Grid searching and making the model perform better
@@ -312,7 +302,6 @@ param_grid = dict(tol=tol, max_iter=max_iter)
 # In[23]:
 
 
-get_ipython().run_cell_magic('nose', '', '\ndef test_tol_defined():\n    assert "tol" in globals(),\\\n        "The variable tol should be defined."\n\ndef test_max_iter_defined():\n    assert "max_iter" in globals(),\\\n        "The variable max_iter should be defined."\n    \ndef test_tol_defined_correctly():\n    correct_tol = [0.01, 0.001 ,0.0001]\n    assert correct_tol == tol, \\\n        "It looks like the tol variable is not defined with the list of correct values."\n    \ndef test_max_iter_defined_correctly():\n    correct_max_iter = [100, 150, 200]\n    assert correct_max_iter == max_iter, \\\n        "It looks like the max_iter variable is not defined with a list of correct values."    \n  \ndef test_param_grid_defined():\n    assert "param_grid" in globals(),\\\n        "The variable param_grid should be defined."\n\ndef test_param_grid_defined_correctly():\n    correct_param_grid = dict(tol=tol, max_iter=max_iter)\n    assert str(correct_param_grid) == str(param_grid),\\\n        "It looks like the param_grid variable is not defined properly."')
 
 
 # ## 12. Finding the best performing model
@@ -341,5 +330,4 @@ print("Best: %f using %s" % (best_score, best_params))
 # In[25]:
 
 
-get_ipython().run_cell_magic('nose', '', '\ncorrect_grid_model = GridSearchCV(estimator=logreg, param_grid=param_grid, cv=5)\ncorrect_grid_model_result = correct_grid_model.fit(rescaledX, y)\n\ndef test_grid_model_defined():\n    assert "grid_model" in globals(),\\\n        "The variable grid_model should be defined."\n\ndef test_grid_model_defined_correctly():\n    #correct_grid_model = GridSearchCV(estimator=logreg, param_grid=param_grid, cv=5)\n    assert str(correct_grid_model) == str(grid_model),\\\n        "It doesn\'t appear that grid_model was defined correctly."\n\ndef test_features_range_set_correctly():\n    min_value_in_rescaledX = np.amin(rescaledX)\n    max_value_in_rescaledX = np.amax(rescaledX)\n    assert min_value_in_rescaledX == 0.0 and max_value_in_rescaledX == 1.0, \\\n        "It doesn\'t appear that the X was scaled to a minimum of 0 and a maximum of 1."    \n    \ndef test_grid_model_results_defined():\n    assert "grid_model_result" in globals(),\\\n        "The variable grid_model_result should be defined."\n    \ndef test_grid_model_result_defined_correctly():\n#     correct_grid_model = GridSearchCV(estimator=logreg, param_grid=param_grid, cv=5)\n#     correct_grid_model_result = correct_grid_model.fit(rescaledX, y)\n    assert str(correct_grid_model_result) == str(grid_model_result), \\\n        "It doesn\'t appear that grid_model_result was defined correctly."\n    \ndef test_best_score_defined_correctly():\n#     correct_grid_model = GridSearchCV(estimator=logreg, param_grid=param_grid, cv=5)\n#     correct_grid_model_result = correct_grid_model.fit(rescaledX, y)\n    correct_best_score = correct_grid_model_result.best_score_\n    assert correct_best_score == best_score,\\\n        "It looks like the variable best_score is not defined correctly."\n    \ndef test_best_params_defined_correctly():\n#     correct_grid_model = GridSearchCV(estimator=logreg, param_grid=param_grid, cv=5)\n#     correct_grid_model_result = correct_grid_model.fit(rescaledX, y)\n    correct_best_params = correct_grid_model_result.best_params_\n    assert correct_best_params == best_params,\\\n        "It looks like the variable best_params is not defined correctly."')
 
