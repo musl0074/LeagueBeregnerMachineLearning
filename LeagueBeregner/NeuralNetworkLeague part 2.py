@@ -56,16 +56,16 @@ dataset = np.array([[2, 7, 4, 8.546, 1, 7, 2, 6.7, 0],
 X = dataset[:, 0:8]
 y = dataset[:, 8]
 
-#Creating model and Dense layers one by one specifying activation function
+
 model = Sequential()
 model.add(Dense(15, input_dim=8, activation='relu'))
 model.add(Dense(10, activation='relu'))
 model.add(Dense(12, activation='relu'))
-model.add(Dense(1, activation='sigmoid')) #sigmoid insted of relu for final prediction
+model.add(Dense(1, activation='sigmoid'))
 
 model.compile(loss="binary_crossentropy", optimizer="adam", metrics=['accuracy'])
 
-model.fit(X, y, batch_size=4, epochs=60)
+model.fit(X, y, batch_size=4, epochs=100)
 
 scores=model.evaluate(X, y)
 print("\n%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
